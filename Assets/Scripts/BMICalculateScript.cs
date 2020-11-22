@@ -48,7 +48,6 @@ public class BMICalculateScript : MonoBehaviour
         }
         else if (BMI >= 35f)
         {
-
             color = new Color32(255, 0, 128, 255); // PINK
         }
         return color;

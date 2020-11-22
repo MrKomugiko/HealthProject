@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -20,25 +21,45 @@ public class GridGeneratorScript : MonoBehaviour
     void Start()
     {
         BMICalculator = GameObject.FindObjectOfType<BMICalculateScript>().GetComponent<BMICalculateScript>();
-        for (int i = chartSize; i > 0; i--)
+        for (int i = chartSize-1; i >= 0; i--)
         {
             for (int j = 0; j < chartSize; j++)
             {
-                float BMI = BMICalculator.GetBMI((startWeight+(weightIncrementValue*i)),(startHeight+(heightIncrementValue*j)));
+                float BMI = BMICalculator.GetBMI((startWeight+(weightIncrementValue*i-1)),(startHeight+(heightIncrementValue*j-1)));
                 var singleGridCell = Instantiate(GridCell);
                 singleGridCell.transform.SetParent(this.transform);
                // singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText($"[i{i},j{j}]");
-                if(BMI%1 == 0f)
-                {
-                    singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText(BMI.ToString()+",0");
-                }
-                else
-                {
-                    singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText(BMI.ToString());
-                }
+                   // GENEROWANIE WARTOSCI W KOMÓRKACH
+                    if(BMI%1 == 0f)
+                    {
+                       singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText(BMI.ToString()+",0");
+                        UpdateColor(BMI,singleGridCell.GetComponent<SpriteRenderer>());
+                    }
+                    else
+                    {
+                       singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText(BMI.ToString());
+                        UpdateColor(BMI,singleGridCell.GetComponent<SpriteRenderer>());
+                    }
+               
+            
+                   //GENEROWANIEETYKIET WAGI I WZROSTU NA OSIACH
+                   if(j==0){
+                   // OŚ WAGi (piowowa)
+                      singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText(Mathf.Round((startWeight+(weightIncrementValue*i))).ToString());
+                      UpdateColor(1f,singleGridCell.GetComponent<SpriteRenderer>());
+                   }
+                   if(i==0){
+                       // OŚ WYSOKOŚCI (POSIOMA)
+                        singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText(Math.Round(Convert.ToDecimal((startHeight+(heightIncrementValue*j))),1).ToString());
+                      UpdateColor(1f,singleGridCell.GetComponent<SpriteRenderer>());
+                   }
+                  
+                    if(i==0 && j==0){
+                        singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText("/");
+                    }
+
 
                 singleGridCell.transform.localScale = Vector3.one;
-                UpdateColor(BMI,singleGridCell.GetComponent<SpriteRenderer>());
             }
         }
 
@@ -46,6 +67,10 @@ public class GridGeneratorScript : MonoBehaviour
 
     public void UpdateColor(float bmiValue, SpriteRenderer cellSprite)
     {
+        if(bmiValue == 1f){
+            // label
+            cellSprite.sprite = listOfCollors.Where(p=>p.name == "BRIGHTBLUE").First();
+        }else
         //var logger = GameObject.Find("androidLogger").GetComponent<TextMeshProUGUI>();
         if (bmiValue <= 18.5f)
         {
