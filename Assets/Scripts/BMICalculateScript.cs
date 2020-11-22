@@ -10,23 +10,26 @@ public class BMICalculateScript : MonoBehaviour
     [SerializeField] TMP_InputField HeightInput;
     [SerializeField] TMP_InputField WeightInput;
     [SerializeField] TextMeshProUGUI BMIResult;
+
     public void OnClick_CalculateBMI()
     {
-
-        float height = float.Parse(HeightInput.text) / 100;
+        float height = float.Parse(HeightInput.text);
         float weight = float.Parse(WeightInput.text);
 
-        float BMI = weight / (height * height);
-        //print($"wzrost: [{height}]");
-        //print($"waga: [{weight}]");
+        float BMI = GetBMI(weight,height);
 
-        //print($"Twoje BMI to: [{Math.Round(BMI,2)}]");
-
-        BMIResult.SetText(Math.Round(BMI, 2).ToString());
-
+        BMIResult.SetText(BMI.ToString());
         BMIResult.color = GetColorBasedOnBMIIndex(BMI);
-    }
 
+        // Clear default or old grid
+        GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().ClearOldGrid();
+
+        // Genereate new grid
+        GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().GenerateCustomizedUserChart(height,weight);
+        
+    }
+    public float GetBMI(float weight, float height) => (float)Math.Round(weight / (height / 100 * height / 100), 1);
+    
     private Color GetColorBasedOnBMIIndex(float BMI)
     {
         Color color = Color.clear;
@@ -52,6 +55,4 @@ public class BMICalculateScript : MonoBehaviour
         }
         return color;
     }
-
-    public float GetBMI(float weight, float height) => (float)Math.Round(weight / (height / 100 * height / 100), 1);
 }
