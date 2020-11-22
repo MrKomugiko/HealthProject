@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CellScript : MonoBehaviour
 {
     [SerializeField] GameObject selectedOverlay;
     [SerializeField] GameObject darkOverlay;
-
-    private bool _isSelected;
-    private bool _isImportant;
-    
+    bool _isSelected;
+    bool _isImportant;
     public bool IsSelected 
     {
         get => _isSelected;
@@ -41,9 +37,5 @@ public class CellScript : MonoBehaviour
                 darkOverlay.SetActive(true);
             }
         }
-    }
-    void Start()
-    {
-
     }
 }
