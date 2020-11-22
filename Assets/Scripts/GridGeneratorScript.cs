@@ -16,7 +16,7 @@ public class GridGeneratorScript : MonoBehaviour
     [SerializeField] float startWeight = 50;
     [SerializeField] float endWeight = 120;
     float weightIncrementValue => (endWeight-startWeight)/chartSize;
-    //string logText= "";
+    string logText= "";
     void Start()
     {
         BMICalculator = GameObject.FindObjectOfType<BMICalculateScript>().GetComponent<BMICalculateScript>();
@@ -46,12 +46,12 @@ public class GridGeneratorScript : MonoBehaviour
 
     public void UpdateColor(float bmiValue, SpriteRenderer cellSprite)
     {
-        var logger = GameObject.Find("androidLogger").GetComponent<TextMeshProUGUI>();
+        //var logger = GameObject.Find("androidLogger").GetComponent<TextMeshProUGUI>();
         if (bmiValue <= 18.5f)
         {
             // UNDERWEIGHT
             cellSprite.sprite = listOfCollors.Where(p=>p.name == "BLUE").First();
-            //logText+="blue ";
+          //  logText+="blue ";
           //  this.GetComponent<Image>().color = Color.blue;
 
 
@@ -60,7 +60,7 @@ public class GridGeneratorScript : MonoBehaviour
         {
             // NORMAL
             cellSprite.sprite = listOfCollors.Where(p=>p.name == "GREEN").First();
-            //logText+="green ";
+        //    logText+="green ";
         //    this.GetComponent<Image>().color = Color.green;
 
         }
@@ -68,7 +68,7 @@ public class GridGeneratorScript : MonoBehaviour
         {
             // OVERWEIGHT
             cellSprite.sprite =listOfCollors.Where(p=>p.name == "YELLOW").First();
-            //logText+="yellow ";
+        //   logText+="yellow ";
         
          //    this.GetComponent<Image>().color = Color.yellow;
         }
@@ -76,7 +76,7 @@ public class GridGeneratorScript : MonoBehaviour
         {
             // OBESE
             cellSprite.sprite = listOfCollors.Where(p=>p.name == "RED").First();
-            //logText+="red ";
+         //   logText+="red ";
 
         //    this.GetComponent<Image>().color = Color.red;
         }
@@ -84,10 +84,10 @@ public class GridGeneratorScript : MonoBehaviour
         {
             // EXTREMELYOBESE
             cellSprite.sprite = listOfCollors.Where(p=>p.name == "PINK").First();
-            //logText+="pink ";
+          //  logText+="pink ";
 
         //    this.GetComponent<Image>().color = Color.magenta;
         }
-       // logger.SetText(logText);
+        //logger.SetText(logText);
     }
 }
