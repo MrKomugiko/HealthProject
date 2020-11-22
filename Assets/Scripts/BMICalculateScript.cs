@@ -22,7 +22,17 @@ public class BMICalculateScript : MonoBehaviour
         print($"Twoje BMI to: [{Math.Round(BMI,2)}]");
 
         BMIResult.SetText(Math.Round(BMI,2).ToString());
+
+        OnClick_ChangeColorsToImages();
     }
 
+    public void OnClick_ChangeColorsToImages(){
+        var listOfCells = GameObject.Find("GridHolder").GetComponentsInChildren<Image>();
+        foreach (Image cell in listOfCells)
+        {
+            cell.color = Color.magenta;
+        }
+
+    }
     public float GetBMI(float weight, float height) => (float)Math.Round(weight/(height/100*height/100),1);
 }
