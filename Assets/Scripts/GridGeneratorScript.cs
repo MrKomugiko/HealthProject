@@ -10,7 +10,7 @@ public class GridGeneratorScript : MonoBehaviour
     public List<Sprite> listOfCollors;
     BMICalculateScript BMICalculator;
     int chartSize = 16;
-    float weight=0, height=0, startHeight=0, startWeight=0, weightIncrementValue =0, heightIncrementValue=0;
+    float weight=0, height=0, startHeight=0, startWeight=0, weightIncrementRate =0, heightIncrementRate=0;
     void Start()
     { 
         BMICalculator = GameObject.FindObjectOfType<BMICalculateScript>().GetComponent<BMICalculateScript>();
@@ -18,12 +18,22 @@ public class GridGeneratorScript : MonoBehaviour
     }
     void GenerateSimpleChart()
     {
+        #region configure default values
+            height = 180;
+            weight = 80;
+            weightIncrementRate = 3;
+            heightIncrementRate = 2;
+            double middleIndex = Math.Round(((chartSize - 1) / 2f)) + 1;
+            startWeight = float.Parse((weight - (weightIncrementRate * (middleIndex - 1))).ToString());
+            startHeight = float.Parse((height - (heightIncrementRate * (middleIndex - 1))).ToString());
+        #endregion;
+
         for (int i = chartSize - 1; i >= 0; i--)
         {
             for (int j = 0; j < chartSize; j++)
             {
-                height = startHeight + ((j - 1) * 2);
-                weight = startWeight + ((i - 1) * 3);
+                height = startHeight + ((j - 1) * heightIncrementRate);
+                weight = startWeight + ((i - 1) * weightIncrementRate);
 
                 float BMI = BMICalculator.GetBMI(weight, height);
                 var singleGridCell = Instantiate(GridCell);
@@ -48,12 +58,12 @@ public class GridGeneratorScript : MonoBehaviour
             else if (j == 0)
             {
                 // OŚ WAGi (piowowa)
-                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Mathf.Round((startWeight + (weightIncrementValue * (i - 1)))).ToString());
+                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Mathf.Round((startWeight + (weightIncrementRate * (i - 1)))).ToString());
             }
             else if (i == 0)
             {
                 // OŚ WYSOKOŚCI (POSIOMA)
-                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Math.Round(Convert.ToDecimal((startHeight + (heightIncrementValue * (j - 1)))), 1).ToString());
+                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Math.Round(Convert.ToDecimal((startHeight + (heightIncrementRate * (j - 1)))), 1).ToString());
             }
             UpdateColor(1f, gridCellObject.GetComponent<SpriteRenderer>());
         }
