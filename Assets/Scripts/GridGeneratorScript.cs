@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -6,88 +6,155 @@ using UnityEngine;
 
 public class GridGeneratorScript : MonoBehaviour
 {
+    [SerializeField] GameObject GridCell;
     public List<Sprite> listOfCollors;
     BMICalculateScript BMICalculator;
-    [SerializeField] GameObject GridCell;
-    [SerializeField] int chartSize = 15;
-    [SerializeField] float startHeight = 150;
-    [SerializeField] float endHeight = 200;
-    float heightIncrementValue => (endHeight-startHeight)/chartSize;
-    [SerializeField] float startWeight = 50;
-    [SerializeField] float endWeight = 120;
-    float weightIncrementValue => (endWeight-startWeight)/chartSize;
-    string logText= "";
+    int chartSize = 16;
+    float weight=0, height=0, startHeight=0, startWeight=0, weightIncrementRate =0, heightIncrementRate=0;
     void Start()
-    {
+    { 
         BMICalculator = GameObject.FindObjectOfType<BMICalculateScript>().GetComponent<BMICalculateScript>();
-        for (int i = chartSize; i > 0; i--)
+        GenerateSimpleChart();
+    }
+    void GenerateSimpleChart()
+    {
+        #region configure default values
+            height = 180;
+            weight = 80;
+            weightIncrementRate = 3;
+            heightIncrementRate = 2;
+            double middleIndex = Math.Round(((chartSize - 1) / 2f)) + 1;
+            startWeight = float.Parse((weight - (weightIncrementRate * (middleIndex - 1))).ToString());
+            startHeight = float.Parse((height - (heightIncrementRate * (middleIndex - 1))).ToString());
+        #endregion;
+
+        for (int i = chartSize - 1; i >= 0; i--)
         {
             for (int j = 0; j < chartSize; j++)
             {
-                float BMI = BMICalculator.GetBMI((startWeight+(weightIncrementValue*i)),(startHeight+(heightIncrementValue*j)));
+                height = startHeight + ((j - 1) * heightIncrementRate);
+                weight = startWeight + ((i - 1) * weightIncrementRate);
+
+                float BMI = BMICalculator.GetBMI(weight, height);
                 var singleGridCell = Instantiate(GridCell);
                 singleGridCell.transform.SetParent(this.transform);
-               // singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText($"[i{i},j{j}]");
-                if(BMI%1 == 0f)
-                {
-                    singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText(BMI.ToString()+",0");
-                }
-                else
-                {
-                    singleGridCell.GetComponentInChildren<TextMeshProUGUI>().SetText(BMI.ToString());
-                }
-
                 singleGridCell.transform.localScale = Vector3.one;
-                UpdateColor(BMI,singleGridCell.GetComponent<SpriteRenderer>());
+
+                MakeShureBMITextIsDecimal(BMI, singleGridCell);
+                UpdateColor(BMI, singleGridCell.GetComponent<SpriteRenderer>());
+                ConfigureIfAxisLabels(i, j, singleGridCell);
             }
         }
 
     }
-
+    void ConfigureIfAxisLabels(int i, int j, GameObject gridCellObject)
+    {
+        if (i == 0 || j == 0)
+        {
+            if (i == 0 && j == 0)
+            {
+                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText("/");
+            }
+            else if (j == 0)
+            {
+                // OŚ WAGi (piowowa)
+                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Mathf.Round((startWeight + (weightIncrementRate * (i - 1)))).ToString());
+            }
+            else if (i == 0)
+            {
+                // OŚ WYSOKOŚCI (POSIOMA)
+                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Math.Round(Convert.ToDecimal((startHeight + (heightIncrementRate * (j - 1)))), 1).ToString());
+            }
+            UpdateColor(1f, gridCellObject.GetComponent<SpriteRenderer>());
+        }
+    }
+    void MakeShureBMITextIsDecimal(float BMI, GameObject gridCellObject)
+    {
+        if (BMI % 1 == 0f)
+        {
+            gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(BMI.ToString() + ",0");
+        }
+        else
+        {
+            gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(BMI.ToString());
+        }
+    }
+    void ConfigureIfIsImportant(int i, int j, double middleIndex, GameObject gridCellObject)
+    {
+        if ((i == 0 || j == 0) || (i == middleIndex - 1 || j == middleIndex - 1))
+        {
+            gridCellObject.GetComponent<CellScript>().IsImportant = true;
+        }
+        if (i == middleIndex - 1 && j == middleIndex - 1)
+        {
+            gridCellObject.GetComponent<CellScript>().IsSelected = true;
+        }
+    }
     public void UpdateColor(float bmiValue, SpriteRenderer cellSprite)
     {
-        //var logger = GameObject.Find("androidLogger").GetComponent<TextMeshProUGUI>();
-        if (bmiValue <= 18.5f)
+        if (bmiValue == 1f)
+        {
+            // LABEL TEXT
+            cellSprite.sprite = listOfCollors.Where(p => p.name == "BRIGHTBLUE").First();
+        }
+        else if (bmiValue <= 18.5f)
         {
             // UNDERWEIGHT
-            cellSprite.sprite = listOfCollors.Where(p=>p.name == "BLUE").First();
-          //  logText+="blue ";
-          //  this.GetComponent<Image>().color = Color.blue;
-
-
+            cellSprite.sprite = listOfCollors.Where(p => p.name == "BLUE").First();
         }
         else if (bmiValue <= 24.9f)
         {
             // NORMAL
-            cellSprite.sprite = listOfCollors.Where(p=>p.name == "GREEN").First();
-        //    logText+="green ";
-        //    this.GetComponent<Image>().color = Color.green;
-
+            cellSprite.sprite = listOfCollors.Where(p => p.name == "GREEN").First();
         }
         else if (bmiValue <= 29.9f)
         {
             // OVERWEIGHT
-            cellSprite.sprite =listOfCollors.Where(p=>p.name == "YELLOW").First();
-        //   logText+="yellow ";
-        
-         //    this.GetComponent<Image>().color = Color.yellow;
+            cellSprite.sprite = listOfCollors.Where(p => p.name == "YELLOW").First();
         }
         else if (bmiValue <= 34.9f)
         {
             // OBESE
-            cellSprite.sprite = listOfCollors.Where(p=>p.name == "RED").First();
-         //   logText+="red ";
-
-        //    this.GetComponent<Image>().color = Color.red;
+            cellSprite.sprite = listOfCollors.Where(p => p.name == "RED").First();
         }
         else if (bmiValue >= 35f)
         {
             // EXTREMELYOBESE
-            cellSprite.sprite = listOfCollors.Where(p=>p.name == "PINK").First();
-          //  logText+="pink ";
-
-        //    this.GetComponent<Image>().color = Color.magenta;
+            cellSprite.sprite = listOfCollors.Where(p => p.name == "PINK").First();
         }
-        //logger.SetText(logText);
+    }
+    public void ClearOldGrid()
+    {
+        CellScript[] oldChartItems = GameObject.Find("GridHolder").GetComponentsInChildren<CellScript>();
+        foreach (var cell in oldChartItems)
+        {
+            Destroy(cell.gameObject);
+        }
+    }
+    public void GenerateCustomizedUserChart(float userHeight, float userWeight, int chartSize = 16, float weightInceraseRate = 2, float heightInceraseRate = 3)
+    {
+        double middleIndex = Math.Round(((chartSize - 1) / 2f)) + 1;
+       
+        startWeight = float.Parse((userWeight - (weightInceraseRate * (middleIndex - 1))).ToString());
+        startHeight = float.Parse((userHeight - (heightInceraseRate * (middleIndex - 1))).ToString());
+
+        for (int i = chartSize - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < chartSize; j++)
+            {
+                height = startHeight + ((j - 1) * heightInceraseRate);
+                weight = startWeight + ((i - 1) * weightInceraseRate);
+
+                float BMI = BMICalculator.GetBMI(weight, height);
+                var singleGridCell = Instantiate(GridCell);
+                singleGridCell.transform.SetParent(this.transform);
+                singleGridCell.transform.localScale = Vector3.one;
+
+                MakeShureBMITextIsDecimal(BMI, singleGridCell);
+                UpdateColor(BMI, singleGridCell.GetComponent<SpriteRenderer>());
+                ConfigureIfAxisLabels(i, j, singleGridCell);
+                ConfigureIfIsImportant(i, j, middleIndex, singleGridCell);
+            }
+        }
     }
 }
