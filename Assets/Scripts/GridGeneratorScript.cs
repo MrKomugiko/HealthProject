@@ -58,12 +58,12 @@ public class GridGeneratorScript : MonoBehaviour
             else if (j == 0)
             {
                 // OŚ WAGi (piowowa)
-                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Mathf.Round((startWeight + (weightIncrementRate * (i - 1)))).ToString());
+                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Mathf.Round((startWeight + (weightIncrementRate * (i)))).ToString());
             }
             else if (i == 0)
             {
                 // OŚ WYSOKOŚCI (POSIOMA)
-                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Math.Round(Convert.ToDecimal((startHeight + (heightIncrementRate * (j - 1)))), 1).ToString());
+                gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Math.Round(Convert.ToDecimal((startHeight + (heightIncrementRate * (j)))), 1).ToString());
             }
             UpdateColor(1f, gridCellObject.GetComponent<SpriteRenderer>());
         }
@@ -131,7 +131,7 @@ public class GridGeneratorScript : MonoBehaviour
             Destroy(cell.gameObject);
         }
     }
-    public void GenerateCustomizedUserChart(float userHeight, float userWeight, int chartSize = 16, float weightInceraseRate = 2, float heightInceraseRate = 3)
+    public void GenerateCustomizedUserChart(float userHeight, float userWeight, int chartSize = 16, float weightInceraseRate = 3, float heightInceraseRate = 2)
     {
         double middleIndex = Math.Round(((chartSize - 1) / 2f)) + 1;
        
