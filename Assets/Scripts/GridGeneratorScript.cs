@@ -10,27 +10,20 @@ public class GridGeneratorScript : MonoBehaviour
     public List<Sprite> listOfCollors;
     BMICalculateScript BMICalculator;
     int chartSize = 16;
-    float startHeight = 150;
-    float endHeight = 200;
-    float heightIncrementValue => (endHeight - startHeight) / (chartSize - 2);
-    float startWeight = 50;
-    float endWeight = 120;
-    float weightIncrementValue => (endWeight - startWeight) / (chartSize - 2);
+    float weight=0, height=0, startHeight=0, startWeight=0, weightIncrementValue =0, heightIncrementValue=0;
     void Start()
-    {
+    { 
         BMICalculator = GameObject.FindObjectOfType<BMICalculateScript>().GetComponent<BMICalculateScript>();
         GenerateSimpleChart();
     }
     void GenerateSimpleChart()
     {
-        float weight, height;
-
         for (int i = chartSize - 1; i >= 0; i--)
         {
             for (int j = 0; j < chartSize; j++)
             {
-                height = startHeight + ((j - 1) * heightIncrementValue);
-                weight = startWeight + ((i - 1) * weightIncrementValue);
+                height = startHeight + ((j - 1) * 2);
+                weight = startWeight + ((i - 1) * 3);
 
                 float BMI = BMICalculator.GetBMI(weight, height);
                 var singleGridCell = Instantiate(GridCell);
@@ -131,8 +124,7 @@ public class GridGeneratorScript : MonoBehaviour
     public void GenerateCustomizedUserChart(float userHeight, float userWeight, int chartSize = 16, float weightInceraseRate = 2, float heightInceraseRate = 3)
     {
         double middleIndex = Math.Round(((chartSize - 1) / 2f)) + 1;
-        float weight,height;
-
+       
         startWeight = float.Parse((userWeight - (weightInceraseRate * (middleIndex - 1))).ToString());
         startHeight = float.Parse((userHeight - (heightInceraseRate * (middleIndex - 1))).ToString());
 
@@ -140,8 +132,8 @@ public class GridGeneratorScript : MonoBehaviour
         {
             for (int j = 0; j < chartSize; j++)
             {
-                height = startHeight + ((j - 1) * heightIncrementValue);
-                weight = startWeight + ((i - 1) * weightIncrementValue);
+                height = startHeight + ((j - 1) * heightInceraseRate);
+                weight = startWeight + ((i - 1) * weightInceraseRate);
 
                 float BMI = BMICalculator.GetBMI(weight, height);
                 var singleGridCell = Instantiate(GridCell);
@@ -155,5 +147,4 @@ public class GridGeneratorScript : MonoBehaviour
             }
         }
     }
-
 }
