@@ -12,6 +12,7 @@ public class SimpleBMIScript : MonoBehaviour
     [SerializeField] float BMIValue;
     [SerializeField] float sectionWidth = 216;
     [SerializeField] BMIType bmiType;
+    [SerializeField] List<Image> listOfDimBg;
     void Start()
     {
         BMIValue = 25;
@@ -19,10 +20,9 @@ public class SimpleBMIScript : MonoBehaviour
         startingPosition = new Vector2((parentSize.x / -2), (parentSize.y / -2));
 
         //every dim background should be turn off in first use
-        List<Image> listOfDimBg = GameObject.FindObjectsOfType<Image>().Where(p => p.name == "DarkBackground_off").ToList();
         foreach (var background in listOfDimBg)
         {
-            background.enabled = false;
+            background.enabled = true;
         }
 
         bmiType = BMIType.normal;
@@ -37,6 +37,7 @@ public class SimpleBMIScript : MonoBehaviour
     }
     public void UpdateSimpleGraphForBmi(BMICalculateScript calculationResult)
     {
+        Pointer.SetActive(true);
         BMIValue = calculationResult.RecentCalculatedBMIValue;
         Pointer.transform.localPosition = startingPosition;
 
@@ -46,26 +47,36 @@ public class SimpleBMIScript : MonoBehaviour
         else if (BMIValue >= 30 && BMIValue < 35) { bmiType = BMIType.obese; }
         else if (BMIValue >= 35) { bmiType = BMIType.extremeObese; }
 
+        foreach (var images in listOfDimBg)
+        {
+            images.enabled = true;
+        }
+
         switch (bmiType)
         {
             case BMIType.underweight:
-                Pointer.transform.localPosition = new Vector2(startingPosition.x, startingPosition.y);
+                Pointer.transform.localPosition = new Vector2(startingPosition.x+(sectionWidth/2), startingPosition.y);
+                listOfDimBg.ElementAt(0).enabled = false;
                 break;
 
             case BMIType.normal:
-                Pointer.transform.localPosition = new Vector2(startingPosition.x + sectionWidth, startingPosition.y);
+                Pointer.transform.localPosition = new Vector2(startingPosition.x + sectionWidth+(sectionWidth/2), startingPosition.y);
+                listOfDimBg.ElementAt(1).enabled = false;
                 break;
 
             case BMIType.overweight:
-                Pointer.transform.localPosition = new Vector2(startingPosition.x + (2 * sectionWidth), startingPosition.y);
+                Pointer.transform.localPosition = new Vector2(startingPosition.x + (2 * sectionWidth)+(sectionWidth/2), startingPosition.y);
+                listOfDimBg.ElementAt(2).enabled = false;
                 break;
 
             case BMIType.obese:
-                Pointer.transform.localPosition = new Vector2(startingPosition.x + (3 * sectionWidth), startingPosition.y);
+                Pointer.transform.localPosition = new Vector2(startingPosition.x + (3 * sectionWidth)+(sectionWidth/2), startingPosition.y);
+                listOfDimBg.ElementAt(3).enabled = false;
                 break;
 
             case BMIType.extremeObese:
-                Pointer.transform.localPosition = new Vector2(startingPosition.x + (4 * sectionWidth), startingPosition.y);
+                Pointer.transform.localPosition = new Vector2(startingPosition.x + (4 * sectionWidth)+(sectionWidth/2), startingPosition.y);
+                listOfDimBg.ElementAt(4).enabled = false;
                 break;
         }
     }
