@@ -8,6 +8,7 @@ public class BMICalculateScript : MonoBehaviour
     [SerializeField] TMP_InputField WeightInput;
     [SerializeField] TextMeshProUGUI BMIResult;
 
+    public float RecentCalculatedBMIValue;
     public void OnClick_CalculateBMI()
     {
         float height = float.Parse(HeightInput.text);
@@ -24,6 +25,7 @@ public class BMICalculateScript : MonoBehaviour
         // Genereate new grid
         GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().GenerateCustomizedUserChart(height,weight);
         
+        RecentCalculatedBMIValue = BMI;
     }
     public float GetBMI(float weight, float height) => (float)Math.Round(weight / (height / 100 * height / 100), 1);
     
