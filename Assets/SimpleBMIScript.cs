@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,13 +13,40 @@ public class SimpleBMIScript : MonoBehaviour
     [SerializeField] BMIType bmiType;
     [SerializeField] List<Image> listOfDimBg;
     BMICalculateScript calculatorScript = null;
+    [SerializeField] GameObject extendedChartObject;
+    [SerializeField] private bool _isExtended;
+    public bool IsExtended 
+        { 
+            get 
+            {
+                return _isExtended;
+            } 
+            set 
+            {
+                _isExtended = value;
+                if(_isExtended)
+                {
+                    extendedChartObject.gameObject.SetActive(true);
+                    print("SHOW extended chart graph");
+                }
+                else
+                {
+                    extendedChartObject.gameObject.SetActive(false);
+                     print("HIDE extended chart graph");
+                }
+                print("Test");
+            } 
+        }
+
+
     void Start()
     {
+        IsExtended = false;
         BMIValue = 25;
         parentSize = this.gameObject.GetComponent<RectTransform>().rect.size;
         startingPosition = new Vector2((parentSize.x / -2), (parentSize.y / -2));
 
-DimmingAllBMISections();
+        DimmingAllBMISections();
     }
     enum BMIType
     {
@@ -31,7 +56,7 @@ DimmingAllBMISections();
         obese,
         extremeObese
     }
-       [SerializeField] float positionAdjustForScale;
+    [SerializeField] float positionAdjustForScale;
 
     public void UpdateSimpleGraphForBmi(BMICalculateScript calculationResult)
     {
@@ -44,13 +69,12 @@ DimmingAllBMISections();
         DimmingAllBMISections();
 
         float startPosition;
-        float endPosition;
 
         switch (bmiType)
         {
             case BMIType.underweight:
                 startPosition = startingPosition.x;
-                positionAdjustForScale = sectionWidth*(BMIValue / 18.5f);
+                positionAdjustForScale = sectionWidth * (BMIValue / 18.5f);
 
                 Pointer.transform.localPosition = new Vector2(startPosition + (positionAdjustForScale), startingPosition.y);
                 listOfDimBg.ElementAt(0).enabled = false;
@@ -58,7 +82,7 @@ DimmingAllBMISections();
 
             case BMIType.normal:
                 startPosition = startingPosition.x + sectionWidth;
-                positionAdjustForScale = sectionWidth*((BMIValue-18.5f) / (24.99f-18.5f));
+                positionAdjustForScale = sectionWidth * ((BMIValue - 18.5f) / (24.99f - 18.5f));
 
                 Pointer.transform.localPosition = new Vector2(startPosition + (positionAdjustForScale), startingPosition.y);
                 listOfDimBg.ElementAt(1).enabled = false;
@@ -66,7 +90,7 @@ DimmingAllBMISections();
 
             case BMIType.overweight:
                 startPosition = startingPosition.x + (2 * sectionWidth);
-                positionAdjustForScale = sectionWidth*((BMIValue-24.99f) / (29.99f-24.99f));
+                positionAdjustForScale = sectionWidth * ((BMIValue - 24.99f) / (29.99f - 24.99f));
 
                 Pointer.transform.localPosition = new Vector2(startPosition + (positionAdjustForScale), startingPosition.y);
                 listOfDimBg.ElementAt(2).enabled = false;
@@ -74,7 +98,7 @@ DimmingAllBMISections();
 
             case BMIType.obese:
                 startPosition = startingPosition.x + (3 * sectionWidth);
-                positionAdjustForScale = sectionWidth*((BMIValue-29.99f) / (34.99f-29.99f));
+                positionAdjustForScale = sectionWidth * ((BMIValue - 29.99f) / (34.99f - 29.99f));
 
                 Pointer.transform.localPosition = new Vector2(startPosition + (positionAdjustForScale), startingPosition.y);
                 listOfDimBg.ElementAt(3).enabled = false;
@@ -84,7 +108,7 @@ DimmingAllBMISections();
                 if (BMIValue > 40f) { BMIValue = 40f; }
 
                 startPosition = startingPosition.x + (4 * sectionWidth);
-                positionAdjustForScale =  sectionWidth*((BMIValue-35.99f) / (39.99f-34.99f));
+                positionAdjustForScale = sectionWidth * ((BMIValue - 35.99f) / (39.99f - 34.99f));
 
                 Pointer.transform.localPosition = new Vector2(startPosition + (positionAdjustForScale), startingPosition.y);
                 listOfDimBg.ElementAt(4).enabled = false;
@@ -108,6 +132,10 @@ DimmingAllBMISections();
         else if (BMIValue >= 30 && BMIValue < 35) { bmiType = BMIType.obese; }
         else { bmiType = BMIType.extremeObese; }
     }
+
+public void OnClick_ShowExtension(){
+    IsExtended= !IsExtended;
+}
     /*
 Setting ranges of pointer move depend of X localisation and bmi types
 
