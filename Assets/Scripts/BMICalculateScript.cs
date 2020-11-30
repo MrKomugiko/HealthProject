@@ -20,10 +20,16 @@ public class BMICalculateScript : MonoBehaviour
         BMIResult.color = GetColorBasedOnBMIIndex(BMI);
 
         // Clear default or old grid
-        GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().ClearOldGrid();
-
+    try
+    {
+         GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().ClearOldGrid();
         // Genereate new grid
         GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().GenerateCustomizedUserChart(height,weight);
+    }   
+    catch (System.Exception)
+    {
+    }
+
         
         RecentCalculatedBMIValue = BMI;
     }
