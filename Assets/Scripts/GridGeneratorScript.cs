@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class GridGeneratorScript : MonoBehaviour
 {
-    [SerializeField] GameObject GridCell;
-    public List<Sprite> listOfCollors;
-    BMICalculateScript BMICalculator;
+    [SerializeField] GameObject GridCell = null;
+    public List<Sprite> listOfCollors = new List<Sprite>();
+    BMICalculateScript BMICalculator = null;
     int chartSize = 16;
     float weight=0, height=0, startHeight=0, startWeight=0, weightIncrementRate =0, heightIncrementRate=0;
     void Start()
