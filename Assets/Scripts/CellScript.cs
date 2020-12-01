@@ -4,6 +4,7 @@ public class CellScript : MonoBehaviour
 {
     [SerializeField] GameObject selectedOverlay;
     [SerializeField] GameObject darkOverlay;
+
     bool _isSelected;
     bool _isImportant;
     public bool IsSelected 

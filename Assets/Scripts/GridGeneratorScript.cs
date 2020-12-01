@@ -41,7 +41,7 @@ public class GridGeneratorScript : MonoBehaviour
                 singleGridCell.transform.localScale = Vector3.one;
 
                 MakeShureBMITextIsDecimal(BMI, singleGridCell);
-                UpdateColor(BMI, singleGridCell.GetComponent<SpriteRenderer>());
+                UpdateColor(BMI, singleGridCell.transform.Find("ColorBackground").GetComponent<SpriteRenderer>());
                 ConfigureIfAxisLabels(i, j, singleGridCell);
             }
         }
@@ -65,7 +65,7 @@ public class GridGeneratorScript : MonoBehaviour
                 // OŚ WYSOKOŚCI (POSIOMA)
                 gridCellObject.GetComponentInChildren<TextMeshProUGUI>().SetText(Math.Round(Convert.ToDecimal((startHeight + (heightIncrementRate * (j)))), 1).ToString());
             }
-            UpdateColor(1f, gridCellObject.GetComponent<SpriteRenderer>());
+            UpdateColor(1f, gridCellObject.transform.Find("ColorBackground").GetComponent<SpriteRenderer>());
         }
     }
     void MakeShureBMITextIsDecimal(float BMI, GameObject gridCellObject)
@@ -151,7 +151,7 @@ public class GridGeneratorScript : MonoBehaviour
                 singleGridCell.transform.localScale = Vector3.one;
 
                 MakeShureBMITextIsDecimal(BMI, singleGridCell);
-                UpdateColor(BMI, singleGridCell.GetComponent<SpriteRenderer>());
+                UpdateColor(BMI, singleGridCell.transform.Find("ColorBackground").GetComponent<SpriteRenderer>());
                 ConfigureIfAxisLabels(i, j, singleGridCell);
                 ConfigureIfIsImportant(i, j, middleIndex, singleGridCell);
             }
