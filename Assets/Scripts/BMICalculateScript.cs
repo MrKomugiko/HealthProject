@@ -22,15 +22,14 @@ public class BMICalculateScript : MonoBehaviour
         // Clear default or old grid
     try
     {
-         GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().ClearOldGrid();
+        GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().ClearOldGrid();
         // Genereate new grid
         GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().GenerateCustomizedUserChart(height,weight);
     }   
     catch (System.Exception)
     {
-    }
-
-        
+    }        
+      
         RecentCalculatedBMIValue = BMI;
     }
     public float GetBMI(float weight, float height) => (float)Math.Round(weight / (height / 100 * height / 100), 1);
