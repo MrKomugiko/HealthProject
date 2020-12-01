@@ -5,19 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class LoginScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnClick_Login(){
         SceneManager.LoadScene("MainScene");
+    }
+    public void OnClick_CreateAccount(){
+        SceneManager.LoadScene("RegistrationScene");
     }
 }
