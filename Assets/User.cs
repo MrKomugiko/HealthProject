@@ -59,7 +59,7 @@ public class User
                     birthday: new DateTime(1995,9,2),
                     gender: PersonalData.GenderEnum.Male
                 ),
-                AvatarId: 5
+                AvatarId: 2
             ),
 
             new User

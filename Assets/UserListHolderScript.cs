@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UserListHolderScript : MonoBehaviour
@@ -51,7 +52,11 @@ public class UserListHolderScript : MonoBehaviour
             var EmptyUserObject = Instantiate(emptyUserButtonPrefab, this.transform.position, Quaternion.identity, this.transform);
             EmptyUserObject.transform.localScale = new Vector3(0.7f, 0.7f, 1);
             EmptyUserObject.transform.Rotate(0f, 0f, 180, Space.Self);
+            EmptyUserObject.GetComponent<Button>().onClick.AddListener(()=> OnClick_GoToRegistrationForm());   
         }
+    }
+        public void OnClick_GoToRegistrationForm(){
+            SceneManager.LoadScene("RegistrationScene");
     }
 
     void SelfConfigureObject(GameObject userObject, User userData) {
