@@ -1,0 +1,10 @@
+﻿[*.cs]
+
+# CS0649: Do pola „LoginScript.selectUsersWindow” nigdy nie jest przypisywana wartość i będzie ono mieć zawsze wartość domyślną null
+dotnet_diagnostic.CS0649.severity = warning
+
+# IDE0051: Usuń nieużywane prywatne składowe
+dotnet_diagnostic.IDE0051.severity = none
+
+# IDE0044: Dodaj modyfikator tylko do odczytu
+dotnet_style_readonly_field = true:silent

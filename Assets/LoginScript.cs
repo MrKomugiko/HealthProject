@@ -6,18 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoginScript : MonoBehaviour
 {
 
-    [SerializeField] GameObject selectUsersWindow;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private GameObject selectUsersWindow = null;
 
     public void OnClick_Login(){
         SceneManager.LoadScene("MainScene");

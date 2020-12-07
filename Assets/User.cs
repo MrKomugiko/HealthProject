@@ -5,28 +5,82 @@ using UnityEngine;
 [Serializable]
 public class User
 {
-    [SerializeField] private int userId;
-    [SerializeField] private string nickName;
-    [SerializeField] private bool isLocal;
 
-    public int UserId { get => userId; set => userId = value; }
-    public string NickName { get => nickName; set => nickName = value; }
-    public bool IsLocal { get => isLocal; set => isLocal = value; }
+    [SerializeField] private int _userId;
+    [SerializeField] private string _nickName;
+    [SerializeField] private bool _isLocal;
+    [SerializeField] private int _avatarId;
+    [SerializeField] private PersonalData _personalData;
 
-    User(int UserId, string NickName, bool IsLocal)
-    {
-        this.userId = UserId;
-        this.nickName = NickName;
-        this.isLocal = IsLocal;
+    public int UserId { get => _userId; set => _userId = value; }
+    public string NickName { get => _nickName; set => _nickName = value; }
+    public bool IsLocal { get => _isLocal; set => _isLocal = value; }
+    public int AvatarId { get => _avatarId; set => _avatarId = value; }
+    public PersonalData PersonalData { get => _personalData; set => _personalData = value; }
+
+    User(int UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0) {
+        this._userId = UserId;
+        this._nickName = NickName;
+        this._isLocal = IsLocal;
+        this._avatarId = AvatarId;
+        this._personalData = PersonalData;
     }
 
-    public static List<User> GetTestUsersList()
-    {
-        List<User> TestUsersAccountsData = new List<User>();
-        TestUsersAccountsData.Add(new User(UserId: 1001, NickName: "Kamil", IsLocal: true));
-        TestUsersAccountsData.Add(new User(UserId: 1002, NickName: "Jakub", IsLocal: true));
-        TestUsersAccountsData.Add(new User(UserId: 1003, NickName: "Konrad", IsLocal: true));
+    public static List<User> GetTestUsersList() {
+        List<User> TestUsersAccountsData = new List<User> {
+            new User
+            (
+                UserId: 1001,
+                NickName: "Kamil",
+                IsLocal: true,
+                PersonalData: new PersonalData
+                (
+                    name: "Kamil",
+                    age: 25,
+                    startingWeight: 82,
+                    startingHeight: 180,
+                    birthday: new DateTime(1995,9,2),
+                    gender: PersonalData.GenderEnum.Male
+                ),
+                AvatarId: 1
+            ),
+
+            new User
+            (
+                UserId: 1002,
+                NickName: "Jakub",
+                IsLocal: true,
+                PersonalData: new PersonalData
+                (
+                    name: "Kuba",
+                    age: 25,
+                    startingWeight: 85,
+                    startingHeight: 181,
+                    birthday: new DateTime(1995,9,2),
+                    gender: PersonalData.GenderEnum.Male
+                ),
+                AvatarId: 5
+            ),
+
+            new User
+            (
+                UserId: 1003,
+                NickName:"Kondziu",
+                IsLocal:true,
+                PersonalData: new PersonalData
+                (
+                    name: "Konrad",
+                    age:25,
+                    startingWeight: 120,
+                    startingHeight: 150,
+                    birthday:new DateTime(1995,1,1),
+                    gender:PersonalData.GenderEnum.Male
+                ),
+                AvatarId:3
+            )
+        };
 
         return TestUsersAccountsData;
     }
+
 }
