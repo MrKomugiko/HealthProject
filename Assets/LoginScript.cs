@@ -11,6 +11,9 @@ public class LoginScript : MonoBehaviour
     public void OnClick_Login(){
         SceneManager.LoadScene("MainScene");
     }
+    public void OnClick_CreateAccount(){
+        SceneManager.LoadScene("RegistrationScene");
+    }
     
     public void OnClick_SelectUser(){
         selectUsersWindow.SetActive(true);
