@@ -3086,7 +3086,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1320141684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eed35ee09702b984bbd7a3f2a6ac9391, type: 3}
+  m_Script: {fileID: 11500000, guid: f575c5dc0d3f2984ca59fde224828c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1345198317
@@ -3532,7 +3532,7 @@ MonoBehaviour:
   - {fileID: 5528794101361166616, guid: c60ae4a49ad54f14c886c8595b0ac6d3, type: 3}
   - {fileID: 8224351035823921404, guid: c60ae4a49ad54f14c886c8595b0ac6d3, type: 3}
   - {fileID: -238751711380682323, guid: c60ae4a49ad54f14c886c8595b0ac6d3, type: 3}
-  releaseMode: Debug
+  releaseMode: Release
 --- !u!1 &1764593099
 GameObject:
   m_ObjectHideFlags: 0
