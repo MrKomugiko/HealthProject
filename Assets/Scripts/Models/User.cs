@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +11,15 @@ public class User
     [SerializeField] private bool _isLocal;
     [SerializeField] private int _avatarId;
     [SerializeField] private PersonalData _personalData;
+    [SerializeField] private bool _isDeleted;
+
 
     public int UserId { get => _userId; set => _userId = value; }
     public string NickName { get => _nickName; set => _nickName = value; }
     public bool IsLocal { get => _isLocal; set => _isLocal = value; }
     public int AvatarId { get => _avatarId; set => _avatarId = value; }
     public PersonalData PersonalData { get => _personalData; set => _personalData = value; }
+    public bool IsDeleted { get => _isDeleted; set => _isDeleted = value; }
 
     public User(int UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0) {
         this._userId = UserId;
@@ -82,4 +86,8 @@ public class User
         return TestUsersAccountsData;
     }
 
+    public void MarkUserToRemove(){
+        Debug.Log("you deleted "+this._userId+" user");
+        this._isDeleted = true;
+    }
 }

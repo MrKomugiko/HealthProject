@@ -38,8 +38,20 @@ public class UserListHolderScript : MonoBehaviour
 
         PopulateListWithItems(TestUsersAccountsData);
 
-       }
+    }
 
+    [SerializeField] bool refreshUsersList;
+    void Update()
+    {
+        if (refreshUsersList)
+        {
+            currentLocalUsers = TestUsersAccountsData.Count;
+            RemoveUsersMarkedToDelete(ref TestUsersAccountsData);
+            PopulateListWithItems(TestUsersAccountsData);
+            SaveUserDataInDeviceAsJsonFile();
+            refreshUsersList = false;
+        }
+    }
     void PopulateListWithItems(List<User> users)
     {
         #region Debug Log in consol
@@ -54,18 +66,41 @@ public class UserListHolderScript : MonoBehaviour
         }
         #endregion;
 
-        foreach (var user in users)
+        if (!refreshUsersList)
         {
-            var UserObject = Instantiate(userButtonPrefab, this.transform.position, Quaternion.identity, this.transform);
-            SelfConfigureObject(UserObject, user);
-        }
+            foreach (var user in users)
+            {
+                var UserObject = Instantiate(userButtonPrefab, this.transform.position, Quaternion.identity, this.transform);
+                SelfConfigureObject(UserObject, user);
+            }
 
-        if (users.Count < maxNumbersOfLocalUser)
+            if (this.transform.Find("AddNewUser") == null)
+            {
+                if (users.Count < maxNumbersOfLocalUser)
+                {
+                    var EmptyUserObject = Instantiate(emptyUserButtonPrefab, this.transform.position, Quaternion.identity, this.transform);
+                    EmptyUserObject.name = "AddNewUser";
+
+                    EmptyUserObject.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+                    EmptyUserObject.transform.Rotate(0f, 0f, 180, Space.Self);
+                    EmptyUserObject.GetComponent<Button>().onClick.AddListener(() => OnClick_GoToRegistrationForm());
+                }
+            }
+        }
+        else
         {
-            var EmptyUserObject = Instantiate(emptyUserButtonPrefab, this.transform.position, Quaternion.identity, this.transform);
-            EmptyUserObject.transform.localScale = new Vector3(0.7f, 0.7f, 1);
-            EmptyUserObject.transform.Rotate(0f, 0f, 180, Space.Self);
-            EmptyUserObject.GetComponent<Button>().onClick.AddListener(() => OnClick_GoToRegistrationForm());
+            // Check if this object already exist
+            if (this.transform.Find("AddNewUser") == null)
+            {
+                if (users.Count < maxNumbersOfLocalUser)
+                {
+                    var EmptyUserObject = Instantiate(emptyUserButtonPrefab, this.transform.position, Quaternion.identity, this.transform);
+                    EmptyUserObject.name = "AddNewUser";
+                    EmptyUserObject.transform.localScale = new Vector3(0.7f, 0.7f, 1);
+                    EmptyUserObject.transform.Rotate(0f, 0f, 180, Space.Self);
+                    EmptyUserObject.GetComponent<Button>().onClick.AddListener(() => OnClick_GoToRegistrationForm());
+                }
+            }
         }
     }
     public void OnClick_GoToRegistrationForm()
@@ -80,9 +115,26 @@ public class UserListHolderScript : MonoBehaviour
         userObject.transform.Rotate(0f, 0f, 180, Space.Self);
         userObject.GetComponentInChildren<Text>().text = userData.NickName;
         userObject.transform.Find("Image").GetComponent<Image>().sprite = avatarsIcon.ElementAt(userData.AvatarId);
+        userObject.transform.Find("Button").GetComponent<Button>().onClick.AddListener(() => userData.MarkUserToRemove());
+        userObject.transform.Find("Button").GetComponent<Button>().onClick.AddListener(() => refreshUsersList = true);
+    }
+    public void RemoveUsersMarkedToDelete(ref List<User> usersList)
+    {
+        // Delete users from memory
+        foreach (User user in usersList.Where(u => u.IsDeleted == true))
+        {
+            usersList.Remove(user);
+
+            // delete users object in application
+            Destroy(this.transform.Find(user.UserId.ToString()).gameObject);
+        }
+
+        // Reload Users list in application
+        refreshUsersList = true;
     }
     List<User> FetchUsersDataFromDevice()
     {
+        #region hardcoded default data
         // test pass values into json formated classes
         UsersList_JSON testJson = new UsersList_JSON();
         testJson.Users = new List<User_JSON>();
@@ -135,17 +187,16 @@ public class UserListHolderScript : MonoBehaviour
                 AvatarId: 3
             )
         );
-        // --------
+        #endregion
 
-        string json = JsonUtility.ToJson(testJson);
-       
-       
-       
         string loadedText_usersData = File.ReadAllText(Application.persistentDataPath + "/Users.json");
-        if(loadedText_usersData == null){
+        if (loadedText_usersData == null)
+        {
             // create new file with dest data
+            string json = JsonUtility.ToJson(testJson);
             File.WriteAllText(Application.persistentDataPath + $"/Users.json", json);
         }
+
         UsersList_JSON fetchedusersfromdevice = JsonUtility.FromJson<UsersList_JSON>(loadedText_usersData);
 
         List<User> users = new List<User>();
@@ -168,7 +219,36 @@ public class UserListHolderScript : MonoBehaviour
                 )
             );
         }
-    
+
         return users;
+    }
+
+    void SaveUserDataInDeviceAsJsonFile()
+    {
+        UsersList_JSON testJson = new UsersList_JSON();
+        testJson.Users = new List<User_JSON>();
+        foreach (User user in TestUsersAccountsData)
+        {
+            testJson.Users.Add(
+                new User_JSON(
+                UserId: user.UserId,
+                NickName: user.NickName,
+                IsLocal: user.IsLocal,
+                PersonalData: new PersonalData(
+                    name: user.PersonalData.Name,
+                    age: user.PersonalData.Age,
+                    startingWeight: user.PersonalData.StartingWeight,
+                    startingHeight: user.PersonalData.StartingHeight,
+                    birthday: user.PersonalData.Birthday,
+                    gender: user.PersonalData.Gender
+                    ),
+                AvatarId: user.AvatarId
+                )
+            );
+        }
+
+        string json = JsonUtility.ToJson(testJson);
+        File.WriteAllText(Application.persistentDataPath + $"/Users.json", json);
+
     }
 }
