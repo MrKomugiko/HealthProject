@@ -5,7 +5,6 @@ using UnityEngine;
 [Serializable]
 public class User
 {
-
     [SerializeField] private int _userId;
     [SerializeField] private string _nickName;
     [SerializeField] private bool _isLocal;
@@ -18,7 +17,7 @@ public class User
     public int AvatarId { get => _avatarId; set => _avatarId = value; }
     public PersonalData PersonalData { get => _personalData; set => _personalData = value; }
 
-    User(int UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0) {
+    public User(int UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0) {
         this._userId = UserId;
         this._nickName = NickName;
         this._isLocal = IsLocal;
