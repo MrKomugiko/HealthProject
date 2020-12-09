@@ -616,7 +616,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1507062548}
+      - m_Target: {fileID: 512851563}
         m_MethodName: OnClick_CreateUser
         m_Mode: 1
         m_Arguments:
@@ -2155,7 +2155,7 @@ GameObject:
   - component: {fileID: 512851564}
   - component: {fileID: 512851563}
   m_Layer: 5
-  m_Name: LoginSection
+  m_Name: RegistrationSection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2198,9 +2198,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 512851561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b702fb23e8426914dbf8a4f6186eb8bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e457e9baf370f74ea102071812e037e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NickName: {fileID: 192112334}
+  Name: {fileID: 2076058116}
+  Age: {fileID: 200429466}
+  Birthday_Day: {fileID: 1923033939}
+  Birthday_Month: {fileID: 2018322164}
+  Birthday_Year: {fileID: 1278017612}
+  Weight: {fileID: 810562665}
+  Height: {fileID: 390935083}
+  Genre: {fileID: 75368807}
 --- !u!114 &512851564
 MonoBehaviour:
   m_ObjectHideFlags: 0

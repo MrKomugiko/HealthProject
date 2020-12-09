@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class User
 {
-    [SerializeField] private int _userId;
+    [SerializeField] private string _userId;
     [SerializeField] private string _nickName;
     [SerializeField] private bool _isLocal;
     [SerializeField] private int _avatarId;
@@ -14,14 +14,14 @@ public class User
     [SerializeField] private bool _isDeleted;
 
 
-    public int UserId { get => _userId; set => _userId = value; }
+    public string UserId { get => _userId; set => _userId = value; }
     public string NickName { get => _nickName; set => _nickName = value; }
     public bool IsLocal { get => _isLocal; set => _isLocal = value; }
     public int AvatarId { get => _avatarId; set => _avatarId = value; }
     public PersonalData PersonalData { get => _personalData; set => _personalData = value; }
     public bool IsDeleted { get => _isDeleted; set => _isDeleted = value; }
 
-    public User(int UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0) {
+    public User(string UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0) {
         this._userId = UserId;
         this._nickName = NickName;
         this._isLocal = IsLocal;
@@ -33,7 +33,7 @@ public class User
         List<User> TestUsersAccountsData = new List<User> {
             new User
             (
-                UserId: 1001,
+                UserId: Guid.NewGuid().ToString(),
                 NickName: "Kamil",
                 IsLocal: true,
                 PersonalData: new PersonalData
@@ -43,14 +43,14 @@ public class User
                     startingWeight: 82,
                     startingHeight: 180,
                     birthday: new DateTime(1995,9,2),
-                    gender: PersonalData.GenderEnum.Male
+                    gender: GenderEnum.Male.ToString()
                 ),
                 AvatarId: 1
             ),
 
             new User
             (
-                UserId: 1002,
+                UserId: Guid.NewGuid().ToString(),
                 NickName: "Jakub",
                 IsLocal: true,
                 PersonalData: new PersonalData
@@ -60,14 +60,14 @@ public class User
                     startingWeight: 85,
                     startingHeight: 181,
                     birthday: new DateTime(1995,9,2),
-                    gender: PersonalData.GenderEnum.Male
+                    gender: GenderEnum.Male.ToString()
                 ),
                 AvatarId: 2
             ),
 
             new User
             (
-                UserId: 1003,
+                UserId: Guid.NewGuid().ToString(),
                 NickName:"Kondziu",
                 IsLocal:true,
                 PersonalData: new PersonalData
@@ -77,7 +77,7 @@ public class User
                     startingWeight: 120,
                     startingHeight: 150,
                     birthday:new DateTime(1995,1,1),
-                    gender:PersonalData.GenderEnum.Male
+                    gender:GenderEnum.Male.ToString()
                 ),
                 AvatarId:3
             )

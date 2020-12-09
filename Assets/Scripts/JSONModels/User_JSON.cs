@@ -5,13 +5,13 @@ using UnityEngine;
 [Serializable]
 public class User_JSON
 {
-    [SerializeField] public int _userId;
+    [SerializeField] public string _userId;
     [SerializeField] public string _nickName;
     [SerializeField] public bool _isLocal;
     [SerializeField] public int _avatarId;
     [SerializeField] public PersonalData _personalData;
 
-    public User_JSON(int UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0) {
+    public User_JSON(string UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0) {
         this._userId = UserId;
         this._nickName = NickName;
         this._isLocal = IsLocal;

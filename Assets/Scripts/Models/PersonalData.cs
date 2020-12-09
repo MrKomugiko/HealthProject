@@ -9,9 +9,9 @@ public class PersonalData
     [SerializeField] private float _startingWeight;
     [SerializeField] private float _startingHeight;
     [SerializeField] private DateTime _birthday;
-    [SerializeField] private GenderEnum _gender;
+    [SerializeField] private string _gender;
 
-    public PersonalData(string name, int age, float startingWeight, float startingHeight, DateTime birthday, GenderEnum gender) {
+    public PersonalData(string name, int age, float startingWeight, float startingHeight, DateTime birthday, string gender) {
         _name = name;
         _age = age;
         _startingWeight = startingWeight;
@@ -25,7 +25,7 @@ public class PersonalData
     public float StartingWeight { get => _startingWeight; set => _startingWeight = value; }
     public float StartingHeight { get => _startingHeight; set => _startingHeight = value; }
     public DateTime Birthday { get => _birthday; set => _birthday = value; }
-    public GenderEnum Gender { get => _gender; set => _gender = value; }
+    public string Gender { get => _gender; set => _gender = value; }
 
     public enum GenderEnum
     {
