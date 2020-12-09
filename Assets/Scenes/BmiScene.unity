@@ -5837,24 +5837,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1854744141}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b916a2459984f146b4bb99743f9d0ec, type: 3}
+  m_Script: {fileID: 11500000, guid: cdf142f7a81295940ba66249b628a31a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Pointer: {fileID: 177112317}
-  parentSize: {x: 1080, y: 174.5}
-  startingPosition: {x: -540, y: -87.25}
-  BMIValue: 22.2
+  parentSize: {x: 0, y: 0}
+  startingPosition: {x: 0, y: 0}
+  BMIValue: 0
   sectionWidth: 216
-  bmiType: 1
-  listOfDimBg:
-  - {fileID: 1046258714}
-  - {fileID: 625824135}
-  - {fileID: 1569174699}
-  - {fileID: 548782923}
-  - {fileID: 1951627068}
+  bmiType: 0
+  listOfDimBg: []
   extendedChartObject: {fileID: 1967646126}
-  _isExtended: 1
-  positionAdjustForScale: 123.143326
+  _isExtended: 0
+  positionAdjustForScale: 0
 --- !u!224 &1854744143
 RectTransform:
   m_ObjectHideFlags: 0

@@ -5,11 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class NavigationScript : MonoBehaviour
 {
-     public void OnClick_CreateUser()
-    {
-        SceneManager.LoadScene("MainScene");
-    }
-        public void OnClick_Back()
+            public void OnClick_Back()
     {
         SceneManager.LoadScene("LandingStartScene");
     }
