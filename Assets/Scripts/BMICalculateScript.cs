@@ -8,32 +8,27 @@ public class BMICalculateScript : MonoBehaviour
     [SerializeField] TMP_InputField WeightInput;
     [SerializeField] TextMeshProUGUI BMIResult;
 
+    [SerializeField] GameObject ExtendedBMIGrid;
+     [SerializeField] GameObject ExtendedBMIGridContainer;
     public float RecentCalculatedBMIValue;
     public void OnClick_CalculateBMI()
     {
         float height = float.Parse(HeightInput.text);
         float weight = float.Parse(WeightInput.text);
 
-        float BMI = GetBMI(weight,height);
+        float BMI = GetBMI(weight, height);
 
         BMIResult.SetText(BMI.ToString());
         BMIResult.color = GetColorBasedOnBMIIndex(BMI);
 
-        // Clear default or old grid
-    try
-    {
-        GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().ClearOldGrid();
-        // Genereate new grid
-        GameObject.Find("GridHolder").GetComponent<GridGeneratorScript>().GenerateCustomizedUserChart(height,weight);
-    }   
-    catch (System.Exception)
-    {
-    }        
-      
+       try { 
+            ExtendedBMIGrid.GetComponent<GridGeneratorScript>().ClearOldGrid(); // Genereate new grid
+            ExtendedBMIGrid.GetComponent<GridGeneratorScript>().GenerateCustomizedUserChart(height, weight); } catch (System.Exception e) {/* print(e+"dupa 2");*/}
+
         RecentCalculatedBMIValue = BMI;
     }
     public float GetBMI(float weight, float height) => (float)Math.Round(weight / (height / 100 * height / 100), 1);
-    
+
     private Color GetColorBasedOnBMIIndex(float BMI)
     {
         Color color = Color.clear;

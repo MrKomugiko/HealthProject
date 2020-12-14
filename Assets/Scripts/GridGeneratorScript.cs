@@ -14,10 +14,11 @@ public class GridGeneratorScript : MonoBehaviour
     void Start()
     { 
         BMICalculator = GameObject.FindObjectOfType<BMICalculateScript>().GetComponent<BMICalculateScript>();
-        GenerateSimpleChart();
+        //GenerateSimpleChart();
     }
-    void GenerateSimpleChart()
+    public void GenerateSimpleChart()
     {
+        print("Create basic empty");
         #region configure default values
             height = 180;
             weight = 80;
@@ -45,7 +46,6 @@ public class GridGeneratorScript : MonoBehaviour
                 ConfigureIfAxisLabels(i, j, singleGridCell);
             }
         }
-
     }
     void ConfigureIfAxisLabels(int i, int j, GameObject gridCellObject)
     {

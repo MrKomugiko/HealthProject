@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,21 +28,58 @@ public class SimpleBMIScript : MonoBehaviour
                 if(_isExtended)
                 {
                     extendedChartObject.gameObject.SetActive(true);
-                    print("SHOW extended chart graph");
+                   // print("SHOW extended chart graph");
                 }
                 else
                 {
                     extendedChartObject.gameObject.SetActive(false);
-                     print("HIDE extended chart graph");
+                //     print("HIDE extended chart graph");
                 }
-                print("Test");
             } 
         }
 
+    [SerializeField] GameObject GameManager;
+    [SerializeField] GameObject calculateButton;
+    bool updateUserDataIsRequired = true;
+    void Update()
+    {
+        var nick = GameManager.GetComponent<StaticSelectedUserData>().currentSelectedUserData.NickName.ToString();
+        if (updateUserDataIsRequired)
+        {
+            if (nick == "")
+            {
+                print("User not loaded...");
+                updateUserDataIsRequired = true;
+            }
+            else
+            {
+                print("Loading User data...");
+                var weight = GameManager.GetComponent<StaticSelectedUserData>().currentSelectedUserData.PersonalData.StartingWeight;
+                var height = GameManager.GetComponent<StaticSelectedUserData>().currentSelectedUserData.PersonalData.StartingHeight;
+
+                print("Data Loaded.");
+                GameObject.Find("HeightInputField").GetComponent<TMP_InputField>().SetTextWithoutNotify(height.ToString());
+                GameObject.Find("WeightImputField").GetComponent<TMP_InputField>().SetTextWithoutNotify(weight.ToString());
+                
+                print("Calculate BMI");
+                calculateButton.GetComponent<BMICalculateScript>().OnClick_CalculateBMI();
+                
+                print("Generate simple Grid");
+                OnClick_ShowExtension();
+                UpdateSimpleGraphForBmi(calculateButton.GetComponent<BMICalculateScript>());
+
+                print("Generate extended Grid in background - ready to open");
+                try{calculateButton.GetComponent<GridGeneratorScript>().GenerateCustomizedUserChart(height,weight);} catch (System.Exception) { }   
+
+                updateUserDataIsRequired = false;
+                print("Configuring COMPLETE.");
+            }
+        }
+    }
 
     void Start()
     {
-        IsExtended = false;
+        IsExtended = true;
         BMIValue = 25;
         parentSize = this.gameObject.GetComponent<RectTransform>().rect.size;
         startingPosition = new Vector2((parentSize.x / -2), (parentSize.y / -2));
