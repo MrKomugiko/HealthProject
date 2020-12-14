@@ -82,6 +82,9 @@ public class UserListHolderScript : MonoBehaviour
         userObject.transform.Find("Image").GetComponent<Image>().sprite = avatarsIcon.ElementAt(userData.AvatarId);
         userObject.transform.Find("Button").GetComponent<Button>().onClick.AddListener(() => userData.MarkUserToRemove());
         userObject.transform.Find("Button").GetComponent<Button>().onClick.AddListener(() => needToRefreshListOfUserObjects = true);
+        userObject.GetComponent<Button>().onClick.AddListener(()=>StaticSelectedUserData.SetUser(
+            Guid.Parse(userData.UserId),
+            userData));
     }
     void RemoveUsersMarkedToDelete(ref List<User> usersList)
     {

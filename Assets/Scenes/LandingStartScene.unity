@@ -1848,6 +1848,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectUsersWindow: {fileID: 1764593099}
   CreateLocalAccount_Button: {fileID: 310929518}
+  maxNumberOfLocalAccounts: 0
+  needUpdateButtonsLogic: 1
 --- !u!1 &426070383
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,6 +2496,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &661715449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 661715451}
+  - component: {fileID: 661715450}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &661715450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661715449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e233a097f904e29489507accac2d5cee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSelectedUser: 
+--- !u!4 &661715451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661715449}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.36518022, y: -0.10749555, z: 150.1269}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &736884516
 GameObject:
@@ -3519,11 +3565,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userButtonPrefab: {fileID: 1036363672804630880, guid: 315e070d2209f954ebfcf5dda7852272,
     type: 3}
+  releaseMode: Release
   emptyUserButtonPrefab: {fileID: 3699568709604981572, guid: f283f7f05f720d443a4f90903ba4c0ff,
     type: 3}
+  UsersAccountData: []
+  needToRefreshListOfUserObjects: 0
   maxNumbersOfLocalUser: 5
   currentLocalUsers: 0
-  TestUsersAccountsData: []
   avatarsIcon:
   - {fileID: -47698751496777399, guid: c60ae4a49ad54f14c886c8595b0ac6d3, type: 3}
   - {fileID: 1203564496155099000, guid: c60ae4a49ad54f14c886c8595b0ac6d3, type: 3}
@@ -3533,8 +3581,6 @@ MonoBehaviour:
   - {fileID: 5528794101361166616, guid: c60ae4a49ad54f14c886c8595b0ac6d3, type: 3}
   - {fileID: 8224351035823921404, guid: c60ae4a49ad54f14c886c8595b0ac6d3, type: 3}
   - {fileID: -238751711380682323, guid: c60ae4a49ad54f14c886c8595b0ac6d3, type: 3}
-  releaseMode: Release
-  refreshUsersList: 0
 --- !u!1 &1764593099
 GameObject:
   m_ObjectHideFlags: 0

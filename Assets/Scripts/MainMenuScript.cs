@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
-    public void OnClick_GoToBMIPage()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    [SerializeField] GameObject GameManager;
+    [SerializeField] TextMeshProUGUI userText;
+
+    void Update(){
+            
+        userText.SetText("User: "+GameManager.GetComponent<StaticSelectedUserData>().currentSelectedUserData.NickName.ToString()+".");
     }
 }
