@@ -11,10 +11,10 @@ public class LoginScript : MonoBehaviour
 {
     [SerializeField] private GameObject selectUsersWindow = null;
     [SerializeField] GameObject CreateLocalAccount_Button;
-    [SerializeField] int maxNumberOfLocalAccounts = 0;
+    [SerializeField] int maxNumberOfLocalAccounts = 5;
     [SerializeField] bool needUpdateButtonsLogic = true;
-    void Start()
-    {
+void Update()    
+{
         if(needUpdateButtonsLogic)
             {
             if (File.Exists(Application.persistentDataPath + $"/Users.json"))
@@ -54,5 +54,6 @@ public class LoginScript : MonoBehaviour
     public void OnClick_BackFromSelectingUserWindow()
     {
         selectUsersWindow.SetActive(false);
+        needUpdateButtonsLogic = true;
     }
 }

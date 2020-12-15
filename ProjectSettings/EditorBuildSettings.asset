@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RegistrationScene.unity
     guid: 7fb50d3ce39d3e04da01a077b5213476
+  - enabled: 1
+    path: Assets/Scenes/HistoryScene.unity
+    guid: 40b846bd98dd97049992f4bbb1e205a2
   m_configObjects: {}

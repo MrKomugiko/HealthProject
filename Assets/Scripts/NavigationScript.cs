@@ -11,6 +11,11 @@ public class NavigationScript : MonoBehaviour
     }
     public void OnClick_GoToBMIPage()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("BmiScene");
+    }
+
+    public void OnClick_GoToHistoryPage()
+    {
+        SceneManager.LoadScene("HistoryScene");
     }
 }
