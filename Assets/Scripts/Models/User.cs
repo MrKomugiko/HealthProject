@@ -13,7 +13,6 @@ public class User
     [SerializeField] private PersonalData _personalData;
     [SerializeField] private bool _isDeleted;
 
-
     public string UserId { get => _userId; set => _userId = value; }
     public string NickName { get => _nickName; set => _nickName = value; }
     public bool IsLocal { get => _isLocal; set => _isLocal = value; }
@@ -21,7 +20,8 @@ public class User
     public PersonalData PersonalData { get => _personalData; set => _personalData = value; }
     public bool IsDeleted { get => _isDeleted; set => _isDeleted = value; }
 
-    public User(string UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0) {
+    public User(string UserId, string NickName, bool IsLocal, PersonalData PersonalData = null, int AvatarId = 0)
+    {
         this._userId = UserId;
         this._nickName = NickName;
         this._isLocal = IsLocal;
@@ -29,7 +29,9 @@ public class User
         this._personalData = PersonalData;
     }
 
-    public static List<User> GetTestUsersList() {
+    public static List<User> GetTestUsersList()
+    {
+        var calculator = new BMICalculateScript();
         List<User> TestUsersAccountsData = new List<User> {
             new User
             (
@@ -43,7 +45,22 @@ public class User
                     startingWeight: 82,
                     startingHeight: 180,
                     birthday: new DateTime(1995,9,2),
-                    gender: GenderEnum.Male.ToString()
+                    gender: GenderEnum.Male.ToString(),
+                    listOfWeights: new List<WeightRecord>()
+                    {
+                            new WeightRecord(
+                                new DateTime(2020,12,14),
+                                82f,
+                                180f,
+                                calculator.GetBMI(82f,180f)
+                            ),
+                            new WeightRecord(
+                                new DateTime(2020,12,15),
+                                81f,
+                                180f,
+                                calculator.GetBMI(81f,180f)
+                            )
+                    }
                 ),
                 AvatarId: 1
             ),
@@ -60,7 +77,22 @@ public class User
                     startingWeight: 85,
                     startingHeight: 181,
                     birthday: new DateTime(1995,9,2),
-                    gender: GenderEnum.Male.ToString()
+                    gender: GenderEnum.Male.ToString(),
+                    listOfWeights: new List<WeightRecord>()
+                    {
+                            new WeightRecord(
+                                new DateTime(2020,12,14),
+                                85f,
+                                181f,
+                                calculator.GetBMI(85f,181f)
+                            ),
+                            new WeightRecord(
+                                new DateTime(2020,12,15),
+                                87f,
+                                181f,
+                                calculator.GetBMI(87f,181f)
+                            )
+                    }
                 ),
                 AvatarId: 2
             ),
@@ -77,7 +109,22 @@ public class User
                     startingWeight: 120,
                     startingHeight: 150,
                     birthday:new DateTime(1995,1,1),
-                    gender:GenderEnum.Male.ToString()
+                    gender:GenderEnum.Male.ToString(),
+                    listOfWeights: new List<WeightRecord>()
+                    {
+                        new WeightRecord(
+                            new DateTime(2020,12,14),
+                            120f,
+                            150f,
+                            calculator.GetBMI(120f,150f)
+                        ),
+                        new WeightRecord(
+                            new DateTime(2020,12,15),
+                            110f,
+                            150f,
+                            calculator.GetBMI(110f,150f)
+                        )
+                    }
                 ),
                 AvatarId:3
             )
@@ -86,8 +133,9 @@ public class User
         return TestUsersAccountsData;
     }
 
-    public void MarkUserToRemove(){
-        Debug.Log("you deleted "+this._userId+" user");
+    public void MarkUserToRemove()
+    {
+        Debug.Log("you deleted " + this._userId + " user");
         this._isDeleted = true;
     }
 }

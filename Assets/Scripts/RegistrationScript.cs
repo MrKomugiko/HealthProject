@@ -36,9 +36,34 @@ public class RegistrationScript : MonoBehaviour
 
         string genre = Genre.ActiveToggles().FirstOrDefault().GetComponentInChildren<Text>().text;
 
+        var calculator = new BMICalculateScript();
+
         UserListHolderScript script = new UserListHolderScript();
         List<User> users = script.FetchUsersDataFromDevice();
-        users.Add(new User(guidID, nickName, true, new PersonalData(name, age, weight, height, birthday, genre), 0));
+        users.Add(
+            new User(
+                guidID, 
+                nickName, 
+                true, 
+                new PersonalData(
+                    name, 
+                    age, 
+                    weight, 
+                    height, 
+                    birthday, 
+                    genre,
+                    new List<WeightRecord>(){
+                        new WeightRecord(
+                            DateTime.Now,
+                            weight,
+                            height,
+                            calculator.GetBMI(weight,height)
+                        )
+                    }
+                ), 
+                0
+            )
+        );
         script.SaveUsersDataInDeviceAsJsonFile(users);
 
         SceneManager.LoadScene("LandingStartScene");

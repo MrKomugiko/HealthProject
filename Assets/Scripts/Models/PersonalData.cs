@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -10,14 +11,17 @@ public class PersonalData
     [SerializeField] private float _startingHeight;
     [SerializeField] private DateTime _birthday;
     [SerializeField] private string _gender;
+    [SerializeField] private List<WeightRecord> _listOfWeights;
 
-    public PersonalData(string name, int age, float startingWeight, float startingHeight, DateTime birthday, string gender) {
+
+    public PersonalData(string name, int age, float startingWeight, float startingHeight, DateTime birthday, string gender, List<WeightRecord> listOfWeights = null) {
         _name = name;
         _age = age;
         _startingWeight = startingWeight;
         _startingHeight = startingHeight;
         _birthday = birthday;
         _gender = gender;
+        _listOfWeights = listOfWeights;
     }
 
     public string Name { get => _name; set => _name = value; }
@@ -26,6 +30,7 @@ public class PersonalData
     public float StartingHeight { get => _startingHeight; set => _startingHeight = value; }
     public DateTime Birthday { get => _birthday; set => _birthday = value; }
     public string Gender { get => _gender; set => _gender = value; }
+    public List<WeightRecord> ListOfWeights { get => _listOfWeights; set => _listOfWeights = value; }
 
     public enum GenderEnum
     {

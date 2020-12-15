@@ -97,13 +97,17 @@ public class UserListHolderScript : MonoBehaviour
     }
     public List<User> FetchUsersDataFromDevice()
     {
-        string loadedText_usersData = File.ReadAllText(Application.persistentDataPath + "/Users.json");
-        if (!File.Exists(Application.persistentDataPath + $"/Users.json") || loadedText_usersData == null)
+        string loadedText_usersData = "";
+        if (!File.Exists(Application.persistentDataPath + $"/Users.json"))
         {
-            List<User> defaultUsers = User.GetTestUsersList();
-            SaveUsersDataInDeviceAsJsonFile(defaultUsers);
+                List<User> defaultUsers = User.GetTestUsersList();
+                SaveUsersDataInDeviceAsJsonFile(defaultUsers);
+                loadedText_usersData = File.ReadAllText(Application.persistentDataPath + "/Users.json");
+        }
+        else
+        {
+            loadedText_usersData = File.ReadAllText(Application.persistentDataPath + "/Users.json");
         };
-
         UsersList_JSON fetchedusersfromdevice = JsonUtility.FromJson<UsersList_JSON>(loadedText_usersData);
 
         List<User> users = new List<User>();
@@ -120,7 +124,8 @@ public class UserListHolderScript : MonoBehaviour
                         user._personalData.StartingWeight,
                         user._personalData.StartingHeight,
                         user._personalData.Birthday,
-                        user._personalData.Gender
+                        user._personalData.Gender,
+                        user._personalData.ListOfWeights
                     ),
                     user._avatarId
                 )
@@ -146,7 +151,8 @@ public class UserListHolderScript : MonoBehaviour
                     startingWeight: user.PersonalData.StartingWeight,
                     startingHeight: user.PersonalData.StartingHeight,
                     birthday: user.PersonalData.Birthday,
-                    gender: user.PersonalData.Gender
+                    gender: user.PersonalData.Gender,
+                    listOfWeights: user.PersonalData.ListOfWeights
                     ),
                 AvatarId: user.AvatarId
                 )

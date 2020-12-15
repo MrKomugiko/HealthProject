@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 420420772}
   - component: {fileID: 420420771}
   m_Layer: 5
-  m_Name: Button_2
+  m_Name: Button_History
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1367,6 +1367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 2040738980}
   userText: {fileID: 1351167802}
+  nick: 
 --- !u!114 &1196378407
 MonoBehaviour:
   m_ObjectHideFlags: 0
