@@ -25,8 +25,12 @@ public class StaticSelectedUserData : MonoBehaviour
                     age: 25,
                     startingWeight: 82,
                     startingHeight: 180,
-                    birthday: new DateTime(1995,9,2),
-                    gender: GenderEnum.Male.ToString()
+                    birthday: new DateTime(1995,9,2).ToString(),
+                    gender: GenderEnum.Male.ToString(),
+                    listOfWeights: new List<WeightRecord>(){
+                        new WeightRecord(DateTime.Now.ToShortDateString(),82,180,25)
+                    }
+
                 ),
                 AvatarId: 1
             );

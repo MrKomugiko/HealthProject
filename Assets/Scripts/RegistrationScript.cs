@@ -29,7 +29,7 @@ public class RegistrationScript : MonoBehaviour
         int day = Convert.ToInt32(Birthday_Day.text);
         int month = Convert.ToInt32(Birthday_Month.text);
         int year = Convert.ToInt32(Birthday_Year.text);
-        DateTime birthday = new DateTime(year, month, day);
+        string birthday = new DateTime(year, month, day).ToShortDateString();
 
         float weight = float.Parse(Weight.text);
         float height = float.Parse(Height.text);
@@ -54,7 +54,7 @@ public class RegistrationScript : MonoBehaviour
                     genre,
                     new List<WeightRecord>(){
                         new WeightRecord(
-                            DateTime.Now,
+                            DateTime.Now.ToString(),
                             weight,
                             height,
                             calculator.GetBMI(weight,height)

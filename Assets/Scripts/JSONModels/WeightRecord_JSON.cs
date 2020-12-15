@@ -3,12 +3,12 @@ using System;
 [Serializable]
 public class WeightRecord_JSON
 {
-    public DateTime _time;
+    public string _time;
     public float _weight;
     public float _height;
     public float _bmiValue;
 
-    public WeightRecord_JSON(DateTime time, float weight, float height, float bmiValue)
+    public WeightRecord_JSON(string time, float weight, float height, float bmiValue)
     {
         _time = time;
         _weight = weight;

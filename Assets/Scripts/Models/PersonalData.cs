@@ -9,12 +9,12 @@ public class PersonalData
     [SerializeField] private int _age;
     [SerializeField] private float _startingWeight;
     [SerializeField] private float _startingHeight;
-    [SerializeField] private DateTime _birthday;
+    [SerializeField] private string _birthday;
     [SerializeField] private string _gender;
     [SerializeField] private List<WeightRecord> _listOfWeights;
 
 
-    public PersonalData(string name, int age, float startingWeight, float startingHeight, DateTime birthday, string gender, List<WeightRecord> listOfWeights = null) {
+    public PersonalData(string name, int age, float startingWeight, float startingHeight, string birthday, string gender, List<WeightRecord> listOfWeights = null) {
         _name = name;
         _age = age;
         _startingWeight = startingWeight;
@@ -28,7 +28,7 @@ public class PersonalData
     public int Age { get => _age; set => _age = value; }
     public float StartingWeight { get => _startingWeight; set => _startingWeight = value; }
     public float StartingHeight { get => _startingHeight; set => _startingHeight = value; }
-    public DateTime Birthday { get => _birthday; set => _birthday = value; }
+    public string Birthday { get => _birthday; set => _birthday = value; }
     public string Gender { get => _gender; set => _gender = value; }
     public List<WeightRecord> ListOfWeights { get => _listOfWeights; set => _listOfWeights = value; }
 

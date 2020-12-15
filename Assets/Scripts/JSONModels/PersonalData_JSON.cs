@@ -9,11 +9,11 @@ public class PersonalData_JSON
     [SerializeField] public int _age;
     [SerializeField] public float _startingWeight;
     [SerializeField] public float _startingHeight;
-    [SerializeField] public DateTime _birthday;
+    [SerializeField] public string _birthday;
     [SerializeField] public GenderEnum _gender;
     [SerializeField] public List<WeightRecord_JSON> _listOfWeights;
 
-    public PersonalData_JSON(string name, int age, float startingWeight, float startingHeight, DateTime birthday, GenderEnum gender, List<WeightRecord_JSON> listOfWeights = null) {
+    public PersonalData_JSON(string name, int age, float startingWeight, float startingHeight, string birthday, GenderEnum gender, List<WeightRecord_JSON> listOfWeights = null) {
         _name = name;
         _age = age;
         _startingWeight = startingWeight;

@@ -44,18 +44,18 @@ public class User
                     age: 25,
                     startingWeight: 82,
                     startingHeight: 180,
-                    birthday: new DateTime(1995,9,2),
+                    birthday: new DateTime(1995,9,2).ToString(),
                     gender: GenderEnum.Male.ToString(),
                     listOfWeights: new List<WeightRecord>()
                     {
                             new WeightRecord(
-                                new DateTime(2020,12,14),
+                                new DateTime(2020,12,14).ToString(),
                                 82f,
                                 180f,
                                 calculator.GetBMI(82f,180f)
                             ),
                             new WeightRecord(
-                                new DateTime(2020,12,15),
+                                new DateTime(2020,12,15).ToString(),
                                 81f,
                                 180f,
                                 calculator.GetBMI(81f,180f)
@@ -76,18 +76,18 @@ public class User
                     age: 25,
                     startingWeight: 85,
                     startingHeight: 181,
-                    birthday: new DateTime(1995,9,2),
+                    birthday: new DateTime(1995,9,2).ToString(),
                     gender: GenderEnum.Male.ToString(),
                     listOfWeights: new List<WeightRecord>()
                     {
                             new WeightRecord(
-                                new DateTime(2020,12,14),
+                                new DateTime(2020,12,14).ToString(),
                                 85f,
                                 181f,
                                 calculator.GetBMI(85f,181f)
                             ),
                             new WeightRecord(
-                                new DateTime(2020,12,15),
+                                new DateTime(2020,12,15).ToString(),
                                 87f,
                                 181f,
                                 calculator.GetBMI(87f,181f)
@@ -108,18 +108,18 @@ public class User
                     age:25,
                     startingWeight: 120,
                     startingHeight: 150,
-                    birthday:new DateTime(1995,1,1),
+                    birthday:new DateTime(1995,1,1).ToString(),
                     gender:GenderEnum.Male.ToString(),
                     listOfWeights: new List<WeightRecord>()
                     {
                         new WeightRecord(
-                            new DateTime(2020,12,14),
+                            new DateTime(2020,12,14).ToString(),
                             120f,
                             150f,
                             calculator.GetBMI(120f,150f)
                         ),
                         new WeightRecord(
-                            new DateTime(2020,12,15),
+                            new DateTime(2020,12,15).ToString(),
                             110f,
                             150f,
                             calculator.GetBMI(110f,150f)
