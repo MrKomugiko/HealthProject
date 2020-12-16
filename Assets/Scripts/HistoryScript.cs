@@ -9,7 +9,7 @@ public class HistoryScript : MonoBehaviour
     [SerializeField] GameObject gameManager;
     [SerializeField] TextMeshProUGUI historyText;
 
-    bool updateIsRequired = true;
+    public bool updateIsRequired = true;
     void Update()
     {
         List<WeightRecord> userWeightHistoryData =

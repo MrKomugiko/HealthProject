@@ -23,7 +23,7 @@ public class BMICalculateScript : MonoBehaviour
 
        try { 
             ExtendedBMIGrid.GetComponent<GridGeneratorScript>().ClearOldGrid(); // Genereate new grid
-            ExtendedBMIGrid.GetComponent<GridGeneratorScript>().GenerateCustomizedUserChart(height, weight); } catch (System.Exception e) {/* print(e+"dupa 2");*/}
+            ExtendedBMIGrid.GetComponent<GridGeneratorScript>().GenerateCustomizedUserChart(height, weight); } catch (System.Exception) {/* print(e+"dupa 2");*/}
 
         RecentCalculatedBMIValue = BMI;
     }

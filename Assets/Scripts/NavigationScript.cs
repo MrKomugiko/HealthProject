@@ -18,4 +18,8 @@ public class NavigationScript : MonoBehaviour
     {
         SceneManager.LoadScene("HistoryScene");
     }
+
+    public void OnClick_BACK(string destination){
+        SceneManager.LoadScene(destination);
+    }
 }

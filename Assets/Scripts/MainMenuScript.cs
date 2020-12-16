@@ -7,11 +7,13 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] GameObject GameManager;
     [SerializeField] TextMeshProUGUI userText;
 
-[SerializeField] string nick;
+    [SerializeField] string nick;
     bool updateUserDataIsRequired = true;
     void Update()
     {
-        nick = GameManager.GetComponent<StaticSelectedUserData>().currentSelectedUserData.NickName.ToString();
+   try
+   {
+        nick = GameManager.GetComponent<StaticSelectedUserData>().currentSelectedUserData.PersonalData.Name.ToString();
         if (updateUserDataIsRequired)
         {
             if (nick == "")
@@ -22,10 +24,16 @@ public class MainMenuScript : MonoBehaviour
             else
             {
                 print("nick is setting up");
-                userText.SetText("User: " + nick + ".");
-                print("user [" + nick + "] is setted2.");
+                userText.SetText("Witaj " + nick + ".");
+                GameManager.GetComponent<StaticSelectedUserData>().SaveUserForNextLogin();
                 updateUserDataIsRequired = false;
             }
         }
+    
+   }
+   catch (System.Exception)
+   {
+       
+   }
     }
 }

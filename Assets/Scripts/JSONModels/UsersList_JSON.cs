@@ -4,5 +4,7 @@ using System.Collections.Generic;
 [Serializable]
 public class UsersList_JSON
 {
+    public string RecentLoggedUser;
     public List<User_JSON> Users;
+
 }
